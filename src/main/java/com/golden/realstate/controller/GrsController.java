@@ -10,42 +10,42 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.golden.realstate.dao.GrsDao;
-import com.golden.realstate.model.GrsTaskActivityModel;
-import com.golden.realstate.repository.GrsRepository;
+import com.golden.realstate.model.GrsTaskActivityModelEntity;
+import com.golden.realstate.services.GrsTaskActivityService;
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/grs/apis/v1/")
 public class GrsController {
     @Autowired
-	GrsDao taskdao;
+    GrsTaskActivityService grsTaskActivityService;
     
 	
-	@PostMapping("/tasks")
-	public GrsTaskActivityModel createTask(@Valid @RequestBody GrsTaskActivityModel task) {
-		return taskdao.save(task);
+	@PostMapping("/tasks/newtask")
+	public ResponseEntity<GrsTaskActivityModelEntity> createTask(@Valid @RequestBody GrsTaskActivityModelEntity task) {
+		 return ResponseEntity.ok().body(this.grsTaskActivityService.createTask(task));
 	}
 	
-	@GetMapping("/gettasks")
-	public Iterable<GrsTaskActivityModel> getTasks() 
+	@GetMapping("/tasks")
+	public ResponseEntity<List<GrsTaskActivityModelEntity>> getTasks() 
 	{
-		System.out.println(taskdao.findAll());
-		return taskdao.findAll();
+		 return ResponseEntity.ok().body(grsTaskActivityService.getAllTask());
 	}
 	
-	@GetMapping("/gettask/{taskId}")
+	@GetMapping("/tasks/{taskId}")
 	public ResponseEntity getTask(@PathVariable(value="taskId") Long taskId) 
 	{
-		Optional<GrsTaskActivityModel> task= taskdao.findOne(taskId);
-		if(task==null) {
-			return ResponseEntity.notFound().build();
-		}
-		 return ResponseEntity.ok().body(task);
+		 return ResponseEntity.ok().body(this.grsTaskActivityService.getTaskById(taskId));
 		
+	}
+	
+	@PutMapping("/tasks/{taskId}")
+	public ResponseEntity<GrsTaskActivityModelEntity> updateTask(@PathVariable(value="taskId") Long taskId, @RequestBody GrsTaskActivityModelEntity task) {
+		task.setTaskId(taskId);
+		 return ResponseEntity.ok().body(this.grsTaskActivityService.updateTask(task));
 	}
 	
 	

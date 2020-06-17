@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="taskActivities")
-public class GrsTaskActivityModel{
+public class GrsTaskActivityModelEntity{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 private Long taskId;

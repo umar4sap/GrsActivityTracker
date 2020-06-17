@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.golden.realstate.model.GrsTaskActivityModel;
+import com.golden.realstate.model.GrsTaskActivityModelEntity;
 import com.golden.realstate.repository.GrsRepository;
 
 @Service
@@ -15,14 +15,14 @@ public class GrsDao {
 	@Autowired
 	GrsRepository TaskRepo;
   
-	public GrsTaskActivityModel save(GrsTaskActivityModel task) {
+	public GrsTaskActivityModelEntity save(GrsTaskActivityModelEntity task) {
 		return TaskRepo.save(task);
 	}
      
-	public Iterable<GrsTaskActivityModel> findAll() {
+	public Iterable<GrsTaskActivityModelEntity> findAll() {
 		return TaskRepo.findAll();
 	}
-	public Optional<GrsTaskActivityModel> findOne(Long taskId) {
+	public Optional<GrsTaskActivityModelEntity> findOne(Long taskId) {
 		return TaskRepo.findById(taskId);
 		
 	}
