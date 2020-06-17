@@ -2,18 +2,20 @@ package com.golden.realstate.model;
 
 import java.util.Date;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="taskActivities")
 public class GrsTaskActivityModelEntity{
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
+@Id
 private Long taskId;
 	
 @Column(name="task_name")
@@ -34,8 +36,10 @@ private Date lastStatusUpdated;
 private String status;
 
 
-@Column(name="assign_to")
-private String assignTo;
+@OneToOne(targetEntity=EmployeeModelEntity.class,fetch=FetchType.EAGER)
+@JoinColumn(name="Assigned_FK",referencedColumnName="emp_id")
+private EmployeeModelEntity assignedTo;
+
 
 @Column(name="resport_to")
 private String reportedTo;
@@ -89,13 +93,6 @@ public void setStatus(String status) {
 	this.status = status;
 }
 
-public String getAssignTo() {
-	return assignTo;
-}
-
-public void setAssignTo(String assignTo) {
-	this.assignTo = assignTo;
-}
 
 public String getReportedTo() {
 	return reportedTo;
@@ -106,7 +103,13 @@ public void setReportedTo(String reportedTo) {
 }
 
 
+public EmployeeModelEntity getAssignedTo() {
+	return assignedTo;
+}
 
+public void setAssignedTo(EmployeeModelEntity assignedTo) {
+	this.assignedTo = assignedTo;
+}
 
 
 

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.golden.realstate.exception.GrsActivityException;
+import com.golden.realstate.exception.GrsException;
 import com.golden.realstate.model.GrsTaskActivityModelEntity;
 import com.golden.realstate.repository.GrsRepository;
 
@@ -39,7 +39,7 @@ public class GrsTaskActivityServiceImpl implements GrsTaskActivityService{
 			
 		}else
 		{
-			throw new GrsActivityException("not found");
+			throw new GrsException("not found");
 		}
 	}
 
@@ -59,7 +59,7 @@ public class GrsTaskActivityServiceImpl implements GrsTaskActivityService{
 			
 		}else
 		{
-			throw new GrsActivityException("task not exist");
+			throw new GrsException("task not exist");
 		}
 	}
 
