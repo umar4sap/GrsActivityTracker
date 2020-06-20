@@ -6,23 +6,38 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="taskActivities")
+@NamedQueries({
+ 
+    @NamedQuery(name="GrsTaskActivityModelEntity.findByProjectId",
+                query="SELECT t FROM GrsTaskActivityModelEntity t WHERE t.projectId=:projectId"),
+    @NamedQuery(name="GrsTaskActivityModelEntity.findByEmpId",
+    query="SELECT t FROM GrsTaskActivityModelEntity t WHERE t.assignedTo=:empId"),
+})
 public class GrsTaskActivityModelEntity{
 
 @Id
+@GeneratedValue(strategy=GenerationType.IDENTITY)
 private Long taskId;
-	
+
+@Column(name="project_id")
+private String projectId;
+
 @Column(name="task_name")
 private String taskName;
 
 @Column(name="task_Description")
-private String tasDescription;
+private String taskDescription;
 
 @Column(name="created_at")
 private Date createdAt;
@@ -36,13 +51,11 @@ private Date lastStatusUpdated;
 private String status;
 
 
-@OneToOne(targetEntity=EmployeeModelEntity.class,fetch=FetchType.EAGER)
-@JoinColumn(name="Assigned_FK",referencedColumnName="emp_id")
-private EmployeeModelEntity assignedTo;
+//@OneToOne(targetEntity=EmployeeModelEntity.class,fetch=FetchType.EAGER)
+//@JoinColumn(name="Assigned_FK",referencedColumnName="emp_id")
 
-
-@Column(name="resport_to")
-private String reportedTo;
+@Column(name="assigned_to")
+private String assignedTo;
 
 
 public Long getTaskId() {
@@ -61,12 +74,12 @@ public void setTaskName(String taskName) {
 	this.taskName = taskName;
 }
 
-public String getTasDescription() {
-	return tasDescription;
+public String getTaskDescription() {
+	return taskDescription;
 }
 
-public void setTasDescription(String tasDescription) {
-	this.tasDescription = tasDescription;
+public void setTaskDescription(String taskDescription) {
+	this.taskDescription = taskDescription;
 }
 
 public Date getCreatedAt() {
@@ -93,23 +106,23 @@ public void setStatus(String status) {
 	this.status = status;
 }
 
-
-public String getReportedTo() {
-	return reportedTo;
+public String getProjectId() {
+	return projectId;
 }
 
-public void setReportedTo(String reportedTo) {
-	this.reportedTo = reportedTo;
+public void setProjectId(String projectId) {
+	this.projectId = projectId;
 }
 
-
-public EmployeeModelEntity getAssignedTo() {
+public String getAssignedTo() {
 	return assignedTo;
 }
 
-public void setAssignedTo(EmployeeModelEntity assignedTo) {
+public void setAssignedTo(String assignedTo) {
 	this.assignedTo = assignedTo;
 }
+
+
 
 
 

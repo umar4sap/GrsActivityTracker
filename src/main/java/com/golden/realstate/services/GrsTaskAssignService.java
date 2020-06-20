@@ -3,8 +3,6 @@ package com.golden.realstate.services;
 import java.util.List;
 
 import com.golden.realstate.model.EmployeeModelEntity;
-import com.golden.realstate.model.GrsTaskActivityModelEntity;
-import com.golden.realstate.repository.GrsRepository;
 
 public interface GrsTaskAssignService {
 
