@@ -12,6 +12,10 @@ public interface GrsTaskActivityService {
 	List<GrsTaskActivityModelEntity>  getAllTask();
 	GrsTaskActivityModelEntity getTaskById(long taskId);
 	
+	List<GrsTaskActivityModelEntity>  getAllTaskByProjectId(String projectId);
+	List<GrsTaskActivityModelEntity> getAllTaskByEmpId(String empId);
+	
+	
 	
 	
 }
